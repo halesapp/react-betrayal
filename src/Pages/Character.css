@@ -1,0 +1,34 @@
+.stats-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.stats-label {
+    font-weight: bold;
+    font-size: larger;
+}
+
+.stats-values {
+    display: flex;
+    justify-content: space-around;
+}
+
+.stats-values > * {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 40px;
+    font-size: 30px;
+}
+
+.stats-values > button {
+    width: 40px;
+}
+
+.character-name {
+    font-size: 2em;
+    font-weight: bolder;
+}
