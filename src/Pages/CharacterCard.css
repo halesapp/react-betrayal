@@ -8,6 +8,7 @@
 .stats-label {
     font-weight: bold;
     font-size: larger;
+    color: #d2d500;
 }
 
 .stats-values {
@@ -26,14 +27,27 @@
 
 .stats-values > button {
     width: 40px;
+    color: black;
 }
 
 .active {
-    background-color: rebeccapurple;
+    background-color: rebeccapurple !important;
 }
 
-.page-content > button {
-    margin: 8px 0;
-    padding: 5px;
-    width: 80%;
+.default-stat-value {
+    background-color: lightskyblue;
+    font-weight: bolder;
+}
+
+.room-buttons {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+.room-button {
+    width: 40vw;
+    margin: 5px 2vw;
+}
+.room-button > div {
+    color: black;
+    font-size: large;
 }

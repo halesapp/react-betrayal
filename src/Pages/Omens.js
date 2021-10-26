@@ -1,10 +1,7 @@
 import React from "react"
 
 const Omens = () => {
-  return (
-    <div>
-    </div>
-  )
+  return <></>
 }
 
 export default Omens

@@ -8,7 +8,6 @@ import home from "./home.svg"
 
 import "./App.css"
 
-const Characters = lazy(() => import("./Pages/Characters"))
 const CharacterCard = lazy(() => import("./Pages/CharacterCard"))
 const Items = lazy(() => import("./Pages/Items"))
 const Omens = lazy(() => import("./Pages/Omens"))
@@ -19,7 +18,6 @@ const App = () => {
       <BrowserRouter basename={process.env.PUBLIC_URL}>
         <nav>
           <Link to="/"><img src={home} alt={"Home Icon"}></img></Link>
-          <Link to="/characters">Characters</Link>
           <Link to="/items">Items</Link>
           <Link to="/omens">Omens</Link>
         </nav>
@@ -27,8 +25,7 @@ const App = () => {
           <Switch>
             <Suspense fallback={<LoadingScreen/>}>
               <Route exact path={"/"} component={Home}/>
-              <Route exact path={"/characters"} component={Characters}/>
-              <Route exact path={"/characters/:name"} component={CharacterCard}/>
+              <Route exact path={"/card/:name"} component={CharacterCard}/>
               <Route exact path={"/items"} component={Items}/>
               <Route exact path={"/omens"} component={Omens}/>
             </Suspense>
