@@ -28,11 +28,12 @@
     width: 40px;
 }
 
-.character-name {
-    font-size: 2em;
-    font-weight: bolder;
-}
-
 .active {
     background-color: rebeccapurple;
+}
+
+.page-content > button {
+    margin: 8px 0;
+    padding: 5px;
+    width: 80%;
 }

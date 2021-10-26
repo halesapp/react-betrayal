@@ -1,6 +1,9 @@
 import React, {lazy, Suspense} from "react";
 import {BrowserRouter, Route, Link, Switch} from "react-router-dom";
 
+import Home from "./Pages/Home"
+import LoadingScreen from "./LoadingScreen";
+
 import home from "./home.svg"
 
 import "./App.css"
@@ -10,8 +13,7 @@ const CharacterCard = lazy(() => import("./Pages/CharacterCard"))
 const Items = lazy(() => import("./Pages/Items"))
 const Omens = lazy(() => import("./Pages/Omens"))
 
-
-export default function App() {
+const App = () => {
   return (
     <div className={"app"}>
       <BrowserRouter basename={process.env.PUBLIC_URL}>
@@ -23,7 +25,7 @@ export default function App() {
         </nav>
         <div className={"page-content-wrapper"}>
           <Switch>
-            <Suspense fallback={<h1>loading...</h1>}>
+            <Suspense fallback={<LoadingScreen/>}>
               <Route exact path={"/"} component={Home}/>
               <Route exact path={"/characters"} component={Characters}/>
               <Route exact path={"/characters/:name"} component={CharacterCard}/>
@@ -37,8 +39,4 @@ export default function App() {
   );
 }
 
-const Home = () => {
-  return (
-    <h1>home page</h1>
-  )
-}
+export default App

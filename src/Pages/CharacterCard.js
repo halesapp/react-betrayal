@@ -1,32 +1,13 @@
 import React, {useState} from "react"
 
-import "./Character.css"
+import cdb from "./CharacterData";
 
-const characterDB = {
-  "ox": {
-    "color": "red",
-    "name": "Ox Bellows",
-    "init": [4, 2, 2, 2],
-    "speed": [2, 2, 2, 3, 4, 5, 5, 6],
-    "might": [4, 5, 5, 6, 6, 7, 8, 8],
-    "sanity": [2, 2, 3, 4, 5, 5, 6, 7],
-    "knowledge": [2, 2, 3, 3, 5, 5, 6, 6]
-  },
-  "flash": {
-    "color": "red",
-    "name": "Darrin \"Flash\" Williams",
-    "init": [4, 2, 2, 2],
-    "speed": [],
-    "might": [],
-    "sanity": [],
-    "knowledge": []
-  }
-}
+import "./Character.css"
 
 const CharacterCard = (props) => {
   const name = props.match.params.name
   const allStats = ['speed', 'might', 'sanity', 'knowledge']
-  const [activeIndices, setActiveIndices] = useState(characterDB[name].init)
+  const [activeIndices, setActiveIndices] = useState(cdb[name].init)
   const dec = (idxStat) => {
     setActiveIndices(lastState => {
       let newState = Array(...lastState)
@@ -49,15 +30,15 @@ const CharacterCard = (props) => {
   }
   return (
     <>
-      <div className={"character-name"}>{characterDB[name].name}</div>
+      <div className={"page-title"}>{cdb[name].name}</div>
       {
         allStats.map((stat, idxStat) => {
           return (
             <div className={"stats-row"} key={idxStat}>
-              <div className={"stats-label"}>{stat}</div>
+              <div className={"stats-label"}>{stat.toUpperCase()}</div>
               <div className={"stats-values"}>
                 <button onClick={() => dec(idxStat)}>-</button>
-                {characterDB[name][stat].map((num, idxInit) => <div key={idxInit} className={idxInit === activeIndices[idxStat] ? "active" : ""}>{num}</div>)}
+                {cdb[name][stat].map((num, idxInit) => <div key={idxInit} className={idxInit === activeIndices[idxStat] ? "active" : ""}>{num}</div>)}
                 <button onClick={() => inc(idxStat)}>+</button>
               </div>
             </div>
