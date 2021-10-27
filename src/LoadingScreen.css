@@ -1,11 +1,15 @@
 .loading-icon {
-    margin-top: 10%;
+    margin-top: 20%;
     text-align: center;
+    fill: whitesmoke;
+    width: 50%;
+    height: 50%;
 }
 .loading-icon > svg {
-    height: 20%;
-    width: 20%;
     animation: loading-spin infinite 2s linear;
+}
+.loading-icon > h2 {
+    color: whitesmoke;
 }
 @keyframes loading-spin {
     from {

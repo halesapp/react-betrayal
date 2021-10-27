@@ -1,15 +1,14 @@
 import React, {useState, useEffect} from "react"
-import {useHistory} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 import CDB from "./CharacterData";
 
 import "./CharacterCard.css"
 
-const LOCAL_CACHE_ITEM_NAME = "react-state"
+const LOCAL_CACHE_ITEM = "react-state"
 
 const CharacterCard = (props) => {
   const name = props.match.params.name
-  const history = useHistory()
   const allStats = ['speed', 'might', 'sanity', 'knowledge']
   const roomStats = {
     "Gymnasium": "Speed",
@@ -19,11 +18,24 @@ const CharacterCard = (props) => {
     "Menagerie": "Physical",
     "Study": "Mental"
   }
-  let newRoomsVisitedState = {}
-  Object.keys(roomStats).forEach(room => newRoomsVisitedState[room] = false)
+  const itemOmenStats = {
+    "Amulet of Ages": "Speed",
+    "Bell": "Might",
+    "Book": "Knowledge",
+    "Candle": "Sanity",
+    "Mask": "Physical",
+    "Madman": "Mental",
+    "Girl": "Mental",
+    "Dog": "Mental"
+  }
+  let roomsVisitedTemplate = {}
+  Object.keys(roomStats).forEach(room => roomsVisitedTemplate[room] = false)
+  let itemsOmensTemplate = {}
+  Object.keys(itemOmenStats).forEach(item => itemsOmensTemplate[item] = false)
 
   const [activeIndices, setActiveIndices] = useState(CDB[name].init)
-  const [roomsVisited, setRoomsVisited] = useState(JSON.parse(JSON.stringify(newRoomsVisitedState)))
+  const [roomsVisited, setRoomsVisited] = useState(JSON.parse(JSON.stringify(roomsVisitedTemplate)))
+  const [itemsOmens, setItemsOmens] = useState(JSON.parse(JSON.stringify(itemsOmensTemplate)))
 
   const dec = (idxStat) => {
     setActiveIndices(lastState => {
@@ -55,34 +67,47 @@ const CharacterCard = (props) => {
       return newState
     })
   }
+  const equipItem = (item) => {
+    setItemsOmens(lastState => {
+      let newState = (JSON.parse(JSON.stringify(lastState)))
+      newState[item] = !newState[item]
+      return newState
+    })
+  }
   const reset = () => {
-    setRoomsVisited(JSON.parse(JSON.stringify(newRoomsVisitedState)))
+    setItemsOmens(JSON.parse(JSON.stringify(itemsOmensTemplate)))
+    setRoomsVisited(JSON.parse(JSON.stringify(roomsVisitedTemplate)))
     setActiveIndices(CDB[name].init)
   }
 
   // Check for state from local cache
   useEffect(() => {
-    const stateFromLocalStorage = JSON.parse(localStorage.getItem(LOCAL_CACHE_ITEM_NAME))
+    const stateFromLocalStorage = JSON.parse(localStorage.getItem(LOCAL_CACHE_ITEM))
     if (stateFromLocalStorage !== null && stateFromLocalStorage[name]) {
+      setItemsOmens(stateFromLocalStorage[name].itemsOmens)
       setRoomsVisited(stateFromLocalStorage[name].roomsVisited)
       setActiveIndices(JSON.parse(JSON.stringify(stateFromLocalStorage[name].activeIndices)))
+    } else {
+      setItemsOmens(JSON.parse(JSON.stringify(itemsOmensTemplate)))
+      setRoomsVisited(JSON.parse(JSON.stringify(roomsVisitedTemplate)))
+      setActiveIndices(CDB[name].init)
     }
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [name])
 
   // Save state to local cache (read current local cache and overwrite the state for this character
   useEffect(() => {
-    let stateFromLocalStorage = JSON.parse(localStorage.getItem(LOCAL_CACHE_ITEM_NAME)) || {}
-    stateFromLocalStorage[name] = {activeIndices: activeIndices, roomsVisited: roomsVisited}
-    localStorage.setItem(LOCAL_CACHE_ITEM_NAME, JSON.stringify(stateFromLocalStorage))
-  }, [activeIndices, roomsVisited, name])
+    let stateFromLocalStorage = JSON.parse(localStorage.getItem(LOCAL_CACHE_ITEM)) || {}
+    stateFromLocalStorage[name] = {activeIndices: activeIndices, roomsVisited: roomsVisited, itemsOmens: itemsOmens}
+    localStorage.setItem(LOCAL_CACHE_ITEM, JSON.stringify(stateFromLocalStorage))
+  }, [activeIndices, roomsVisited, itemsOmens, name])
 
   return (
     <>
       <div className={"page-title"}>{CDB[name].name}</div>
       <div>
         <button className={"character-buttons"} onClick={() => reset()}>Reset</button>
-        <button className={"character-buttons"} onClick={() => history.push(`/card/${CDB[name].alt}`)}>Flip Card</button>
+        <button className={"character-buttons"}><Link to={`/card/${CDB[name].alt}`}>Flip Card</Link></button>
       </div>
       {
         allStats.map((stat, idxStat) => {
@@ -115,6 +140,23 @@ const CharacterCard = (props) => {
                 <div>{name}</div>
                 <div>{roomStats[name]} +1</div>
               </button>
+            )
+          })
+        }
+      </div>
+
+      <h2>ITEMS AND OMENS</h2>
+      <div className={"item-buttons"}>
+        {
+          Object.keys(itemOmenStats).map((item, idx) => {
+            return (
+              <div className={"item-checkbox-wrapper"}>
+                <input type={"checkbox"} checked={itemsOmens[item]} onInput={() => equipItem(item)}/>
+                <div>{item}</div>
+              </div>
+              // <button key={idx} className={"room-button"} onClick={() => equipItem(name)}>
+              //   <div>{item}</div>
+              // </button>
             )
           })
         }

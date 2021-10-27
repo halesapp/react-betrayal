@@ -47,8 +47,9 @@
 }
 
 .room-button {
-    width: 40vw;
+    width: 38vw;
     margin: 5px 2vw;
+    min-height: 45px;
 }
 
 .room-button > div {
@@ -56,8 +57,28 @@
     font-size: large;
 }
 
+.item-buttons {
+    display: grid;
+    grid-template-columns: auto auto;
+    width: 85%;
+    font-size: 16px;
+}
+
 .character-buttons {
     color: black;
     margin: 0 6px 12px 6px;
     padding: 4px;
+}
+.character-buttons > a {
+    color: black;
+    text-decoration: none;
+}
+
+.item-checkbox-wrapper {
+    display: flex;
+    align-items: center;
+}
+.item-checkbox-wrapper > input {
+    height: 34px;
+    width: 34px;
 }
