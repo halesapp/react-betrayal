@@ -3,6 +3,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin: 3px 0;
 }
 
 .stats-label {
@@ -31,23 +32,32 @@
 }
 
 .active {
-    background-color: rebeccapurple !important;
+    background: rgb(13, 121, 93);
+    border-radius: 5px;
 }
 
 .default-stat-value {
-    background-color: lightskyblue;
     font-weight: bolder;
+    color: #d2d700;
 }
 
 .room-buttons {
     display: grid;
     grid-template-columns: auto auto;
 }
+
 .room-button {
     width: 40vw;
     margin: 5px 2vw;
 }
+
 .room-button > div {
     color: black;
     font-size: large;
+}
+
+.character-buttons {
+    color: black;
+    margin: 0 6px 12px 6px;
+    padding: 4px;
 }

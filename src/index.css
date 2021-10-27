@@ -10,8 +10,7 @@
 }
 * {
     color: ghostwhite;
-    font-family: de-walpergens-pica, monospace;
-    letter-spacing: 3px;
+    font-family: monospace;
 }
 .betrayal-red {
     background-color: #db0000;

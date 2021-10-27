@@ -11,6 +11,7 @@ import "./App.css"
 const CharacterCard = lazy(() => import("./Pages/CharacterCard"))
 const Items = lazy(() => import("./Pages/Items"))
 const Omens = lazy(() => import("./Pages/Omens"))
+const Rooms = lazy(() => import("./Pages/Rooms"))
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
           <Link to="/"><img src={home} alt={"Home Icon"}></img></Link>
           <Link to="/items">Items</Link>
           <Link to="/omens">Omens</Link>
+          <Link to="/rooms">Rooms</Link>
         </nav>
         <div className={"page-content-wrapper"}>
           <Switch>
@@ -28,6 +30,7 @@ const App = () => {
               <Route exact path={"/card/:name"} component={CharacterCard}/>
               <Route exact path={"/items"} component={Items}/>
               <Route exact path={"/omens"} component={Omens}/>
+              <Route exact path={"/rooms"} component={Rooms}/>
             </Suspense>
           </Switch>
         </div>

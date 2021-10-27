@@ -1,18 +1,24 @@
 import React from "react";
 import {useHistory} from "react-router-dom";
 
-import cdb from "./CharacterData";
+import CDB from "./CharacterData";
 
 import "./Home.css"
 
 const Home = () => {
   const history = useHistory()
+  const clearSavedGames = () => localStorage.clear()
   return (
     <>
       <div className={"page-title"}>Betrayal at House on the Hill</div>
+      <button className={"home-button"} onClick={clearSavedGames()}>Clear All Saved Games</button>
       {
-        Object.keys(cdb).map((name, idx) => {
-          return <button key={idx} onClick={() => history.push(`/card/${name}`)} className={`home-button betrayal-${cdb[name].color}`}>{cdb[name].name}</button>
+        Object.keys(CDB).map((name, idx) => {
+          return (
+            <button key={idx} onClick={() => history.push(`/card/${name}`)} className={`home-button betrayal-${CDB[name].color}`}>
+              {CDB[name].name}
+            </button>
+          )
         })
       }
     </>
