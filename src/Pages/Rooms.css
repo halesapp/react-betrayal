@@ -1,0 +1,23 @@
+.room-table {
+    margin: auto;
+    width: 100%;
+}
+.room-name {
+    width: 200px;
+    margin: 1px;
+    border: 1px whitesmoke dashed;
+    display: flex;
+    align-items: center;
+}
+.room-check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    margin: 1px;
+    border: 1px white dashed;
+}
+.table-row {
+    display: flex;
+}

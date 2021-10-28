@@ -1,5 +1,5 @@
 #root {
-    background-color: black;
+    background-color: #101010;
     position: absolute;
     padding: 0;
     margin: 0;
@@ -30,6 +30,6 @@
 .betrayal-yellow {
     background-color: #b4b402;
 }
-h2 {
+h1, h2 {
     color: #d2d500;
 }

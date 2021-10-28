@@ -5,7 +5,7 @@ import CDB from "./CharacterData";
 
 import "./CharacterCard.css"
 
-const LOCAL_CACHE_ITEM = "react-state"
+const LOCAL_CACHE_REACT_STATE = "react-state"
 
 const CharacterCard = (props) => {
   const name = props.match.params.name
@@ -18,20 +18,20 @@ const CharacterCard = (props) => {
     "Menagerie": "Physical",
     "Study": "Mental"
   }
-  const itemOmenStats = {
-    "Amulet of Ages": "Speed",
-    "Bell": "Might",
-    "Book": "Knowledge",
-    "Candle": "Sanity",
-    "Mask": "Physical",
-    "Madman": "Mental",
-    "Girl": "Mental",
-    "Dog": "Mental"
+  const itemsOmensTemplate = {
+    "Amulet of Ages": false,
+    "Bell": false,
+    "Locket": false,
+    "Candle": false,
+    "Girl": false,
+    "Book": false,
+    "Madman": false,
+    "Dog": false,
+    "Holy Symbol": false,
+    "Mask": false
   }
   let roomsVisitedTemplate = {}
   Object.keys(roomStats).forEach(room => roomsVisitedTemplate[room] = false)
-  let itemsOmensTemplate = {}
-  Object.keys(itemOmenStats).forEach(item => itemsOmensTemplate[item] = false)
 
   const [activeIndices, setActiveIndices] = useState(CDB[name].init)
   const [roomsVisited, setRoomsVisited] = useState(JSON.parse(JSON.stringify(roomsVisitedTemplate)))
@@ -82,7 +82,7 @@ const CharacterCard = (props) => {
 
   // Check for state from local cache
   useEffect(() => {
-    const stateFromLocalStorage = JSON.parse(localStorage.getItem(LOCAL_CACHE_ITEM))
+    const stateFromLocalStorage = JSON.parse(localStorage.getItem(LOCAL_CACHE_REACT_STATE))
     if (stateFromLocalStorage !== null && stateFromLocalStorage[name]) {
       setItemsOmens(stateFromLocalStorage[name].itemsOmens)
       setRoomsVisited(stateFromLocalStorage[name].roomsVisited)
@@ -97,9 +97,9 @@ const CharacterCard = (props) => {
 
   // Save state to local cache (read current local cache and overwrite the state for this character
   useEffect(() => {
-    let stateFromLocalStorage = JSON.parse(localStorage.getItem(LOCAL_CACHE_ITEM)) || {}
+    let stateFromLocalStorage = JSON.parse(localStorage.getItem(LOCAL_CACHE_REACT_STATE)) || {}
     stateFromLocalStorage[name] = {activeIndices: activeIndices, roomsVisited: roomsVisited, itemsOmens: itemsOmens}
-    localStorage.setItem(LOCAL_CACHE_ITEM, JSON.stringify(stateFromLocalStorage))
+    localStorage.setItem(LOCAL_CACHE_REACT_STATE, JSON.stringify(stateFromLocalStorage))
   }, [activeIndices, roomsVisited, itemsOmens, name])
 
   return (
@@ -134,11 +134,11 @@ const CharacterCard = (props) => {
       <h2>ROOMS VISITED</h2>
       <div className={"room-buttons"}>
         {
-          Object.keys(roomStats).map((name, idx) => {
+          Object.keys(roomStats).map((room, idx) => {
             return (
-              <button key={idx} className={"room-button"} disabled={roomsVisited[name]} onClick={() => visitRoom(name)}>
-                <div>{name}</div>
-                <div>{roomStats[name]} +1</div>
+              <button key={idx} className={"room-button"} disabled={roomsVisited[room]} onClick={() => visitRoom(room)}>
+                <div>{room}</div>
+                <div>{roomStats[room]} +1</div>
               </button>
             )
           })
@@ -148,15 +148,12 @@ const CharacterCard = (props) => {
       <h2>ITEMS AND OMENS</h2>
       <div className={"item-buttons"}>
         {
-          Object.keys(itemOmenStats).map((item, idx) => {
+          Object.keys(itemsOmensTemplate).map((item, idx) => {
             return (
-              <div className={"item-checkbox-wrapper"}>
-                <input type={"checkbox"} checked={itemsOmens[item]} onInput={() => equipItem(item)}/>
+              <div key={idx} className={"item-checkbox-wrapper"}>
+                <input type={"checkbox"} checked={itemsOmens[item]} onChange={() => equipItem(item)}/>
                 <div>{item}</div>
               </div>
-              // <button key={idx} className={"room-button"} onClick={() => equipItem(name)}>
-              //   <div>{item}</div>
-              // </button>
             )
           })
         }

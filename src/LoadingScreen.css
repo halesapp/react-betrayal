@@ -4,6 +4,8 @@
     fill: whitesmoke;
     width: 50%;
     height: 50%;
+    max-width: 500px;
+    max-height: 500px;
 }
 .loading-icon > svg {
     animation: loading-spin infinite 2s linear;
