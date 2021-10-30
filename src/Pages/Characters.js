@@ -52,7 +52,7 @@ const Characters = (props) => {
       if (newState[room]) return newState
       newState[room] = !newState[room]
       if (room === "Menagerie" || room === "Study") alert(`Room marked as visited. Choose 1 ${roomStats[room]} trait and gain 1 point in that trait.`)
-      else changeStat(allStats.indexOf(roomStats[room].toLowerCase()))
+      else changeStat(allStats.indexOf(roomStats[room].toLowerCase()), 1)
       return newState
     })
   }
@@ -141,7 +141,7 @@ const Characters = (props) => {
       <div className={"page-title"}>{CDB[name].name}</div>
       <div>
         <button className={"character-buttons"} onClick={() => reset()}>Reset</button>
-        <button className={"character-buttons"}><Link to={`/${CDB[name].alt}`}>Flip Card</Link></button>
+        <button className={"character-buttons"}><Link to={`/character/${CDB[name].alt}`}>Flip Card</Link></button>
       </div>
       {
         allStats.map((stat, idxStat) => {

@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react"
+import LoadingScreen from "../LoadingScreen";
 
 const LOCAL_STORAGE_ITEM = "cards-db"
 
@@ -20,7 +21,7 @@ const Omens = () => {
       })
   }, [])
 
-  if (cardsDB === null) return <></>
+  if (cardsDB === null) return <LoadingScreen/>
   return (
     <>
       <h1>Cards</h1>
