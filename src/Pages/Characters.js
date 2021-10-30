@@ -3,11 +3,11 @@ import {Link} from "react-router-dom";
 
 import CDB from "./CharacterData";
 
-import "./CharacterCard.css"
+import "./Characters.css"
 
 const LOCAL_CACHE_REACT_STATE = "react-state"
 
-const CharacterCard = (props) => {
+const Characters = (props) => {
   const name = props.match.params.name
   const allStats = ['speed', 'might', 'sanity', 'knowledge']
   const roomStats = {
@@ -21,13 +21,13 @@ const CharacterCard = (props) => {
   const itemsOmensTemplate = {
     "Amulet of Ages": false,
     "Bell": false,
-    "Locket": false,
     "Candle": false,
-    "Girl": false,
     "Book": false,
-    "Madman": false,
     "Dog": false,
+    "Girl": false,
     "Holy Symbol": false,
+    "Locket": false,
+    "Madman": false,
     "Mask": false
   }
   let roomsVisitedTemplate = {}
@@ -37,23 +37,12 @@ const CharacterCard = (props) => {
   const [roomsVisited, setRoomsVisited] = useState(JSON.parse(JSON.stringify(roomsVisitedTemplate)))
   const [itemsOmens, setItemsOmens] = useState(JSON.parse(JSON.stringify(itemsOmensTemplate)))
 
-  const dec = (idxStat) => {
-    setActiveIndices(lastState => {
-      let newState = Array(...lastState)
-      if (newState[idxStat] === 0) {
-        return newState
-      }
-      newState[idxStat] = newState[idxStat] - 1
-      return newState
-    })
-  }
-  const inc = (idxStat) => {
+  const changeStat = (idxStat, amount) => {
     setActiveIndices(lastIndices => {
       let newState = Array(...lastIndices)
-      if (newState[idxStat] === 7) {
-        return newState
-      }
-      newState[idxStat] = newState[idxStat] + 1
+      newState[idxStat] = newState[idxStat] + amount
+      newState[idxStat] = newState[idxStat] >= 7 ? 7 : newState[idxStat]
+      newState[idxStat] = newState[idxStat] <= 0 ? 0 : newState[idxStat]
       return newState
     })
   }
@@ -63,14 +52,59 @@ const CharacterCard = (props) => {
       if (newState[room]) return newState
       newState[room] = !newState[room]
       if (room === "Menagerie" || room === "Study") alert(`Room marked as visited. Choose 1 ${roomStats[room]} trait and gain 1 point in that trait.`)
-      else inc(allStats.indexOf(roomStats[room].toLowerCase()))
+      else changeStat(allStats.indexOf(roomStats[room].toLowerCase()))
       return newState
     })
   }
   const equipItem = (item) => {
     setItemsOmens(lastState => {
       let newState = (JSON.parse(JSON.stringify(lastState)))
-      newState[item] = !newState[item]
+      const equipped = !newState[item]
+      newState[item] = equipped
+
+      if (item === "Amulet of Ages") {
+        const amount = equipped ? 1 : -3
+        allStats.forEach((stat, idx) => changeStat(idx, amount))
+      }
+
+      else if (item === "Bell" || item === "Locket") {
+        changeStat(allStats.indexOf("sanity"), equipped ? 1 : -1)
+      }
+
+      else if (item === "Book") {
+        changeStat(allStats.indexOf("knowledge"), equipped ? 2 : -2)
+      }
+
+      else if (item === "Candle") {
+        // if (equipped) incrementAmount = 2
+        // else incrementAmount = -2
+        // changeStat(allStats.indexOf("knowledge"), incrementAmount)
+      }
+
+      else if (item === "Dog") {
+        changeStat(allStats.indexOf("might"), equipped ? 1 : -1)
+        changeStat(allStats.indexOf("sanity"), equipped ? 1 : -1)
+      }
+
+      else if (item === "Girl") {
+        changeStat(allStats.indexOf("knowledge"), equipped ? 1 : -1)
+        changeStat(allStats.indexOf("sanity"), equipped ? 1 : -1)
+      }
+
+      else if (item === "Holy Symbol") {
+        changeStat(allStats.indexOf("sanity"), equipped ? 2 : -2)
+      }
+
+      else if (item === "Madman") {
+        changeStat(allStats.indexOf("might"), equipped ? 2 : -2)
+        changeStat(allStats.indexOf("sanity"), equipped ? -1 : 1)
+      }
+
+      else if (item === "Mask") {
+        changeStat(allStats.indexOf("knowledge"), equipped ? 2 : -2)
+        changeStat(allStats.indexOf("sanity"), equipped ? -2 : 2)
+      }
+
       return newState
     })
   }
@@ -107,7 +141,7 @@ const CharacterCard = (props) => {
       <div className={"page-title"}>{CDB[name].name}</div>
       <div>
         <button className={"character-buttons"} onClick={() => reset()}>Reset</button>
-        <button className={"character-buttons"}><Link to={`/card/${CDB[name].alt}`}>Flip Card</Link></button>
+        <button className={"character-buttons"}><Link to={`/${CDB[name].alt}`}>Flip Card</Link></button>
       </div>
       {
         allStats.map((stat, idxStat) => {
@@ -115,7 +149,7 @@ const CharacterCard = (props) => {
             <div className={"stats-row"} key={idxStat}>
               <div className={"stats-label"}>{stat.toUpperCase()}</div>
               <div className={"stats-values"}>
-                <button onClick={() => dec(idxStat)}>-</button>
+                <button onClick={() => changeStat(idxStat, -1)}>-</button>
                 {
                   CDB[name][stat].map((num, idxInit) => {
                     let classList = []
@@ -124,7 +158,7 @@ const CharacterCard = (props) => {
                     return <div key={idxInit} className={classList.join(" ")}>{num}</div>
                   })
                 }
-                <button onClick={() => inc(idxStat)}>+</button>
+                <button onClick={() => changeStat(idxStat, 1)}>+</button>
               </div>
             </div>
           )
@@ -163,4 +197,4 @@ const CharacterCard = (props) => {
 
 }
 
-export default CharacterCard
+export default Characters

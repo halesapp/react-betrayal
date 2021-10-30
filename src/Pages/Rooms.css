@@ -1,6 +1,9 @@
 .room-table {
     margin: auto;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .room-name {
     width: 200px;
