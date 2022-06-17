@@ -1,7 +1,9 @@
 .home-button {
     margin: 8px 0;
     padding: 5px;
-    width: 85%;
+    width: min(85%, 500px);
     color: whitesmoke;
+    text-align: center;
+    text-decoration: none;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }

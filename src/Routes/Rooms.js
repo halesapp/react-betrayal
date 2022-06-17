@@ -24,28 +24,26 @@ const Rooms = () => {
   if (roomsDb == null) return <></>
   return (
     <div className={"room-table"}>
-      <div className={"table-row"}>
-        <div className={"room-name"}>Room</div>
-        <div className={"room-check"}>B</div>
-        <div className={"room-check"}>G</div>
-        <div className={"room-check"}>U</div>
-        <div className={"room-check"}>R</div>
-        <div className={"room-check"}>E</div>
-        <div className={"room-check"}>O</div>
-        <div className={"room-check"}>I</div>
-        <div className={"room-check"}>D</div>
-      </div>
+        <div>Room</div>
+        <div>B</div>
+        <div>G</div>
+        <div>U</div>
+        <div>R</div>
+        <div>E</div>
+        <div>O</div>
+        <div>I</div>
+        <div>D</div>
         {
-        Object.keys(roomsDb).map((room, idx) => {
+        Object.keys(roomsDb).map(room => {
           return (
-            <div key={idx} className={"table-row"}>
-              <div className={"room-name"}>{room}</div>
+            <>
+              <div>{room}</div>
               {
                 Object.keys(roomsDb[room]).map((check, idx) => {
-                  return <div key={idx} className={"room-check"}>{roomsDb[room][check] === "x" ? "X" : ""}</div>
+                  return <div key={idx}>{roomsDb[room][check] === "x" ? "X" : ""}</div>
                 })
               }
-            </div>
+            </>
           )
         })
       }
