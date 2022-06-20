@@ -9,6 +9,7 @@ import home from "./home.svg"
 import "./App.css"
 
 const Characters = lazy(() => import("./Routes/Characters"))
+const Rules = lazy(() => import("./Routes/Rules"))
 const Cards = lazy(() => import("./Routes/Cards"))
 const Rooms = lazy(() => import("./Routes/Rooms"))
 
@@ -18,6 +19,7 @@ export default function App() {
           <nav>
               <div className={"nav-spacer"}>
                   <Link to="/"><img src={home} alt={"Home Icon"}/></Link>
+                  <Link to="/rules">Rules</Link>
                   <Link to="/cards">Cards</Link>
                   <Link to="/rooms">Rooms</Link>
               </div>
@@ -28,6 +30,7 @@ export default function App() {
                       <Routes>
                           <Route exact={true} path={"/"} element={<Home/>}/>
                           <Route exact={true} path={"/c/:name"} element={<Characters/>}/>
+                          <Route exact={true} path={"/rules"} element={<Rules/>}/>
                           <Route exact={true} path={"/cards"} element={<Cards/>}/>
                           <Route exact={true} path={"/rooms"} element={<Rooms/>}/>
                           <Route path={"/*"} element={"Not Found"}/>

@@ -5,6 +5,8 @@ import CDB from "../database/CharacterData.json";
 import ItemsOmens from "../database/ItemsOmens.json"
 import RoomStats from "../database/RoomStats.json"
 
+import skull from "../icons/skull.svg"
+
 import "./Characters.css"
 
 const LOCAL_CACHE_REACT_STATE = "react-state"
@@ -118,7 +120,7 @@ export default function Characters() {
                         <div className={"stats-label"}>{stat.toUpperCase()}</div>
                         <div className={"stats-values"}>
                             <button onClick={() => changeStat(idxStat, -1)}>-</button>
-                            <div>X</div>
+                            <div><img alt={"skull icon"} src={skull}/></div>
                             {
                                 CDB[name][stat].map((num, idxInit) => {
                                     let classList = []

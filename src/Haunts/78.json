@@ -1,0 +1,7 @@
+{
+  "Heros": ["No extra rules"],
+  "Traitor": [
+    "Once per turn, you may destroy a tome by bringing it to the kitchen or furnace room and making a knowledge roll.",
+    "If there are more than 3 heroes at the start of the haunt, the traitor may also pick up tomes."
+  ]
+}
