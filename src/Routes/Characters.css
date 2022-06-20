@@ -8,26 +8,28 @@
 
 .stats-label {
     font-weight: bold;
-    font-size: larger;
+    font-size: xx-large;
     color: #d2d500;
 }
 
 .stats-values {
     display: flex;
     justify-content: space-around;
+    align-items: center;
 }
 
 .stats-values > * {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 30px;
-    height: 40px;
-    font-size: 30px;
+    width: 28px;
+    height: 28px;
+    font-size: 28px;
 }
 
 .stats-values > button {
-    width: 40px;
+    width: 32px;
+    height: 32px;
     color: black;
 }
 
@@ -44,11 +46,12 @@
 .room-buttons {
     display: grid;
     grid-template-columns: auto auto;
+    width: min(85%, 550px);
 }
 
 .room-button {
-    width: 38vw;
-    margin: 5px 2vw;
+    width: min(325px, 85%);
+    margin: 5px auto;
     min-height: 45px;
 }
 
@@ -59,8 +62,8 @@
 
 .item-buttons {
     display: grid;
-    grid-template-columns: auto auto;
-    width: 85%;
+    grid-template-columns: auto auto auto;
+    width: min(100%, 550px);
     font-size: 16px;
 }
 

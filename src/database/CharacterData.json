@@ -1,4 +1,4 @@
-const CDB = {
+{
   "ox": {
     "color": "red",
     "name": "Ox Bellows",
@@ -120,5 +120,3 @@ const CDB = {
     "knowledge": [2, 3, 4, 4, 5, 6, 6, 6]
   }
 }
-
-export default CDB
