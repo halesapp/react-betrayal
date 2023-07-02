@@ -2,7 +2,7 @@
   "name": "betrayal-assistant",
   "version": "0.8.0",
   "private": true,
-  "homepage": "https://bhh.hales.app",
+  "homepage": "https://bhh.games.hales.app",
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

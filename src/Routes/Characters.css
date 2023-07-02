@@ -87,3 +87,7 @@
     height: 30px;
     width: 30px;
 }
+
+.icon {
+    max-height: 1em;
+}

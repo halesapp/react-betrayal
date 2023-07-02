@@ -120,7 +120,7 @@ export default function Characters() {
                         <div className={"stats-label"}>{stat.toUpperCase()}</div>
                         <div className={"stats-values"}>
                             <button onClick={() => changeStat(idxStat, -1)}>-</button>
-                            <div><img alt={"skull icon"} src={skull}/></div>
+                            <div style={{maxWidth: "1em", maxHeight: "1em"}}><img alt={"skull icon"} src={skull} className={"icon"}/></div>
                             {
                                 CDB[name][stat].map((num, idxInit) => {
                                     let classList = []
